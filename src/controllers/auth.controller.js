@@ -11,6 +11,7 @@ const register = async (req,res)=>{
             message: 'User registered successfully',
             data: user,
         });
+        
 };
 
 const login = async (req,res)=>{
