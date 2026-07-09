@@ -4,13 +4,16 @@ const errorHandler = require('./middlewares/error.middleware')
 const authorize = require('./middlewares/authorize.middleware');
 const {authenticate} = require('./middlewares/auth.middleware')
 const taskRoutes = require('./routes/task.routes');
+const {globalLimiter , authLimiter} = require('./middlewares/rateLimiter.middleware');
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-app.use('/api/v1/auth', authRoutes );
+app.use(globalLimiter);
+
+app.use('/api/v1/auth', authLimiter, authRoutes );
 app.use('/api/v1/tasks', taskRoutes);
 
 app.get('/health', (req,res)=>{
