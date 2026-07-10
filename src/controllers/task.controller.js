@@ -18,11 +18,12 @@ const create = asyncHandler(async (req, res) => {
 });
 
 const getAll = asyncHandler(async (req, res) => {
-  const tasks = await getAllTasks(req.user.id, req.user.role);
+  const result = await getAllTasks(req.user.id, req.user.role, req.query);
   res.status(200).json({
     success: true,
     message: "All tasks fetched successfully",
-    data: tasks,
+    data: result.tasks,
+    pagination: result.pagination,
   });
 });
 
